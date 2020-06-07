@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/nik/development/MIPS_SIMULATOR/include/tools.h
+stdlib.h
+-
+stdio.h
+-
+
+/home/nik/development/MIPS_SIMULATOR/src/main.c
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+../include/tools.h
+/home/nik/development/MIPS_SIMULATOR/include/tools.h
+
+/home/nik/development/MIPS_SIMULATOR/src/tools.c
+../include/tools.h
+/home/nik/development/MIPS_SIMULATOR/include/tools.h
+
