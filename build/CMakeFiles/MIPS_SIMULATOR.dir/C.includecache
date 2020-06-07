@@ -11,18 +11,18 @@ stdlib.h
 -
 stdio.h
 -
-
-/home/nik/development/MIPS_SIMULATOR/src/main.c
-stdio.h
+stdint.h
 -
-string.h
--
-stdlib.h
--
-../include/tools.h
-/home/nik/development/MIPS_SIMULATOR/include/tools.h
 
 /home/nik/development/MIPS_SIMULATOR/src/tools.c
 ../include/tools.h
 /home/nik/development/MIPS_SIMULATOR/include/tools.h
+string.h
+-
+stdio.h
+-
+stdint.h
+-
+stdlib.h
+-
 
