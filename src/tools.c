@@ -4,14 +4,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
+#include <stdarg.h>
 
 /* Linked List ***********/
 struct node
 {
   int address;
   char content[BUFF_SIZE];
-  char binary[ADDR_SIZE];
+  char bin_content[ADDR_SIZE];
   struct node *next;
 };
 
@@ -23,40 +23,39 @@ char* get_array(int argc, char*argv[]){
  char (*array)[BUFF_SIZE]=NULL;
   array = read_from_file(argc, argv);
   for (int i = 0;i < MAX_SIZE; i++){
-    insert_first(i,array);// Inser in the LL
+    insert_first(i,array[i]);// Inser in the LL
   }
-  //print_list();
-  free(array);
+  printf("\|=================|\t  HEX\t|===================================|\tBINARY\t|========|\n");
+  print_list();
+  printf("\n|DONE================================================================================|\n");
   return 0;
 }
 
 /*display the list*************/
 void print_list() {
    struct node *ptr = head;
-   printf("[ ");
-	
    //start from the beginning
    while(ptr != NULL) {
-      printf("%s",ptr->binary);
-      ptr = ptr->next;
+     printf("\t|%s|\t\t|%s|",ptr->content,ptr->bin_content);
+     ptr = ptr->next;
    }
-    printf("] ");
 }
 /*Insert********************/
 void insert_first(int i,char (*array)[BUFF_SIZE]){
   struct node *newregister = (struct node*) malloc(sizeof(struct node));
   newregister -> address = i;
-  memcpy( newregister -> content,&array[i],BUFF_SIZE);
-  hex_to_bin(&array[i]);
-  //memcpy(newregister -> binary ,hex_to_bin(array[i]),BUFF_SIZE);
-  //memcpy(newregister->binary,bin,ADDR_SIZE);
-  //memcpy( newregister -> binary,bin,ADDR_SIZE);
+  char *tmp2 = malloc(ADDR_SIZE * sizeof(char));
+  memcpy( newregister -> content,array,BUFF_SIZE);
+  tmp2 = hex_to_bin(array);
+  memcpy( newregister -> bin_content,tmp2,ADDR_SIZE);
+  free(tmp2);
   newregister -> next = head;
   head = newregister;
 }
 /**************************/
-char *hex_to_bin(char *array){
+char *hex_to_bin(char (*array)[BUFF_SIZE]){
   char hex[BUFF_SIZE], bin[ADDR_SIZE]="";
+  
   memcpy(hex,array,BUFF_SIZE);
   //printf("%s\n",hex);
   int i = 0;
@@ -124,8 +123,9 @@ char *hex_to_bin(char *array){
 	      break;
         }
     }
-    printf("%s\n",bin);
-    return bin;
+    char *tmp = malloc(ADDR_SIZE * sizeof(char));
+    memcpy(tmp,bin,ADDR_SIZE);
+    return tmp;
 }
 
 /*************************/
