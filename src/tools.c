@@ -12,6 +12,7 @@ struct node
   int address;
   char content[BUFF_SIZE];
   char bin_content[ADDR_SIZE];
+  char opcode[7];
   struct node *next;
 };
 
@@ -25,8 +26,8 @@ char* get_array(int argc, char*argv[]){
   for (int i = 0;i < MAX_SIZE; i++){
     insert_first(i,array[i]);// Inser in the LL
   }
-  printf("\|=================|\t  HEX\t|===================================|\tBINARY\t|========|\n");
-  print_list();
+  printf("\||\t  HEX\t|========|\tBINARY\t|=============|OPCODE|==|\n");
+   print_list();
   printf("\n|DONE================================================================================|\n");
   return 0;
 }
@@ -36,7 +37,7 @@ void print_list() {
    struct node *ptr = head;
    //start from the beginning
    while(ptr != NULL) {
-     printf("\t|%s|\t\t|%s|",ptr->content,ptr->bin_content);
+     printf("|%sH|_|%s|_|%s|",ptr->content,ptr->bin_content,ptr->opcode);
      ptr = ptr->next;
    }
 }
@@ -45,13 +46,42 @@ void insert_first(int i,char (*array)[BUFF_SIZE]){
   struct node *newregister = (struct node*) malloc(sizeof(struct node));
   newregister -> address = i;
   char *tmp2 = malloc(ADDR_SIZE * sizeof(char));
+  /*Add HEX contents */
   memcpy( newregister -> content,array,BUFF_SIZE);
+   /* Add HEX to Binary */
   tmp2 = hex_to_bin(array);
   memcpy( newregister -> bin_content,tmp2,ADDR_SIZE);
-  free(tmp2);
+  /* Add OpCode */
+  char *tmp3 = malloc(ADDR_SIZE * sizeof(char));
+  tmp3 = get_opcode(tmp2);
+  memcpy( newregister -> opcode,tmp3,OPCODE_SIZE);
+  
+  /* Next *************/
   newregister -> next = head;
+  free(tmp2);
+  free(tmp3);
   head = newregister;
 }
+/* Get Opcode******************/
+char *get_opcode(char (*array)[ADDR_SIZE]){
+  
+  char opcode[OPCODE_SIZE];
+  char *tmp = malloc(ADDR_SIZE * sizeof(char));
+  char *tmp2 = malloc(OPCODE_SIZE * sizeof(char));
+  memcpy(tmp,array,ADDR_SIZE);
+  int j = 0;
+  for(int i = 0;i < OPCODE_SIZE-1;i++) {
+    opcode[j]=tmp[i];
+    j++;
+  }
+
+  free(tmp);
+  memcpy(tmp2,opcode,OPCODE_SIZE);
+  // printf("%s\n",opcode);
+  return tmp2;
+
+}
+
 /**************************/
 char *hex_to_bin(char (*array)[BUFF_SIZE]){
   char hex[BUFF_SIZE], bin[ADDR_SIZE]="";
