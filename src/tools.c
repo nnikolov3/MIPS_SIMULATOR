@@ -1,30 +1,138 @@
 #include "../include/tools.h"
-/**************************/
-void read_from_file(int argc, char* argv[]){
-  FILE *fp;
-  struct data line;
-  int n, nol, i;
-  /*Open file*/
-  fp = fopen(argv[1],"rb");
-  if (fp == NULL) {
-    perror("%s file does not exist \n");
-    exit(1);
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
+/* Linked List ***********/
+struct node
+{
+  int address;
+  char content[BUFF_SIZE];
+  char binary[ADDR_SIZE];
+  struct node *next;
+};
+
+struct node *head = NULL;
+struct node *current = NULL;
+/*************************/
+/*Get Array**************/
+char* get_array(int argc, char*argv[]){
+ char (*array)[BUFF_SIZE]=NULL;
+  array = read_from_file(argc, argv);
+  for (int i = 0;i < MAX_SIZE; i++){
+    insert_first(i,array);// Inser in the LL
   }
-  fseek(fp, 0L, SEEK_END);
-  n = ftell(fp);
-  nol=n/sizeof(struct data);
-  for (i=1;i<=nol;i++)
-    {
-      fseek(fp,sizeof(struct data)*i,SEEK_END);
-      fread(&line,sizeof(struct data),1,fp);
-      puts(line.str);
-    }
-  fclose(fp);
+  //print_list();
+  free(array);
+  return 0;
 }
+
+/*display the list*************/
+void print_list() {
+   struct node *ptr = head;
+   printf("[ ");
+	
+   //start from the beginning
+   while(ptr != NULL) {
+      printf("%s",ptr->binary);
+      ptr = ptr->next;
+   }
+    printf("] ");
+}
+/*Insert********************/
+void insert_first(int i,char (*array)[BUFF_SIZE]){
+  struct node *newregister = (struct node*) malloc(sizeof(struct node));
+  newregister -> address = i;
+  memcpy( newregister -> content,&array[i],BUFF_SIZE);
+  hex_to_bin(&array[i]);
+  //memcpy(newregister -> binary ,hex_to_bin(array[i]),BUFF_SIZE);
+  //memcpy(newregister->binary,bin,ADDR_SIZE);
+  //memcpy( newregister -> binary,bin,ADDR_SIZE);
+  newregister -> next = head;
+  head = newregister;
+}
+/**************************/
+char *hex_to_bin(char *array){
+  char hex[BUFF_SIZE], bin[ADDR_SIZE]="";
+  memcpy(hex,array,BUFF_SIZE);
+  //printf("%s\n",hex);
+  int i = 0;
+
+    /* Extract first digit and find binary of each hex digit */
+    for(i=0; hex[i]!='\0'; i++)
+    {
+        switch(hex[i])
+        {
+            case '0':
+                strcat(bin, "0000");
+                break;
+            case '1':
+                strcat(bin, "0001");
+                break;
+            case '2':
+                strcat(bin, "0010");
+                break;
+            case '3':
+                strcat(bin, "0011");
+                break;
+            case '4':
+                strcat(bin, "0100");
+                break;
+            case '5':
+                strcat(bin, "0101");
+                break;
+            case '6':
+                strcat(bin, "0110");
+                break;
+            case '7':
+                strcat(bin, "0111");
+                break;
+            case '8':
+                strcat(bin, "1000");
+                break;
+            case '9':
+                strcat(bin, "1001");
+                break;
+            case 'a':
+            case 'A':
+                strcat(bin, "1010");
+                break;
+            case 'b':
+            case 'B':
+                strcat(bin, "1011");
+                break;
+            case 'c':
+            case 'C':
+                strcat(bin, "1100");
+                break;
+            case 'd':
+            case 'D':
+                strcat(bin, "1101");
+                break;
+            case 'e':
+            case 'E':
+                strcat(bin, "1110");
+                break;
+            case 'f':
+            case 'F':
+                strcat(bin, "1111");
+                break;
+            default:
+	      break;
+        }
+    }
+    printf("%s\n",bin);
+    return bin;
+}
+
 /*************************/
 void breakdown_of_instruction_frequencies()
 {
   //
+  
 }
 /*************************/
 void record_total_number_of_instructions()
@@ -37,9 +145,26 @@ void record_registers_and_memory_that_changed_states()
 
 }
 /*************************/
-
-/*************************/
-void convert_hex_to_bin()
-{
-  //converts hex to binary
+/* Read from file ******/
+char* read_from_file(int argc, char* argv[]){
+  FILE *stream;
+  char (*lines)[BUFF_SIZE] = NULL;
+  int n = 0;
+  /*Open file*/
+  stream = fopen(argv[1],"rb");
+  if (stream == NULL)
+    {
+      fprintf(stderr, "failed to open input.txt\n");
+      exit(1);
+    }
+  if (!(lines = malloc (MAX_SIZE * sizeof *lines))) { /* allocate MAXL arrays */
+        fprintf (stderr, "error: virtual memory exhausted 'lines'.\n");
+        exit(1);
+    }
+  while(n<MAX_SIZE && fgets(lines[n],BUFF_SIZE,stream)>0){
+    
+    n++;
+  }
+  fclose(stream);
+  return lines;
 }

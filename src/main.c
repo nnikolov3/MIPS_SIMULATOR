@@ -5,7 +5,8 @@
 
 
 int main(int argc, char* argv[]){
-
-	read_from_file(argc, argv);
+  
+  get_array(argc, argv);
+  return 0;
 }
 
