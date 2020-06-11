@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/nik/development/MIPS_SIMULATOR/src/instruction_fetch.c" "/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_fetch.c.o"
   "/home/nik/development/MIPS_SIMULATOR/src/main.c" "/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/MIPS_SIMULATOR.dir/src/main.c.o"
+  "/home/nik/development/MIPS_SIMULATOR/src/pipeline.c" "/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/MIPS_SIMULATOR.dir/src/pipeline.c.o"
   "/home/nik/development/MIPS_SIMULATOR/src/tools.c" "/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/MIPS_SIMULATOR.dir/src/tools.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

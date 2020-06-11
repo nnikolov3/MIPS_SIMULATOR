@@ -143,6 +143,33 @@ MIPS_SIMULATOR/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/build
 .PHONY : MIPS_SIMULATOR/fast
 
+src/instruction_fetch.o: src/instruction_fetch.c.o
+
+.PHONY : src/instruction_fetch.o
+
+# target to build an object file
+src/instruction_fetch.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_fetch.c.o
+.PHONY : src/instruction_fetch.c.o
+
+src/instruction_fetch.i: src/instruction_fetch.c.i
+
+.PHONY : src/instruction_fetch.i
+
+# target to preprocess a source file
+src/instruction_fetch.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_fetch.c.i
+.PHONY : src/instruction_fetch.c.i
+
+src/instruction_fetch.s: src/instruction_fetch.c.s
+
+.PHONY : src/instruction_fetch.s
+
+# target to generate assembly for a file
+src/instruction_fetch.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_fetch.c.s
+.PHONY : src/instruction_fetch.c.s
+
 src/main.o: src/main.c.o
 
 .PHONY : src/main.o
@@ -169,6 +196,33 @@ src/main.s: src/main.c.s
 src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/main.c.s
 .PHONY : src/main.c.s
+
+src/pipeline.o: src/pipeline.c.o
+
+.PHONY : src/pipeline.o
+
+# target to build an object file
+src/pipeline.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/pipeline.c.o
+.PHONY : src/pipeline.c.o
+
+src/pipeline.i: src/pipeline.c.i
+
+.PHONY : src/pipeline.i
+
+# target to preprocess a source file
+src/pipeline.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/pipeline.c.i
+.PHONY : src/pipeline.c.i
+
+src/pipeline.s: src/pipeline.c.s
+
+.PHONY : src/pipeline.s
+
+# target to generate assembly for a file
+src/pipeline.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/pipeline.c.s
+.PHONY : src/pipeline.c.s
 
 src/tools.o: src/tools.c.o
 
@@ -206,9 +260,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... MIPS_SIMULATOR"
+	@echo "... src/instruction_fetch.o"
+	@echo "... src/instruction_fetch.i"
+	@echo "... src/instruction_fetch.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/pipeline.o"
+	@echo "... src/pipeline.i"
+	@echo "... src/pipeline.s"
 	@echo "... src/tools.o"
 	@echo "... src/tools.i"
 	@echo "... src/tools.s"
