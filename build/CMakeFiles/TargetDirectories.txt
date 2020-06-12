@@ -1,3 +1,0 @@
-/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/rebuild_cache.dir
-/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/edit_cache.dir
-/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles/MIPS_SIMULATOR.dir

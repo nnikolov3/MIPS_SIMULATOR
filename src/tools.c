@@ -1,68 +1,50 @@
 #include "../include/tools.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdarg.h>
+#include "../include/const.h"
 
-/* Linked List ***********/
-struct node
-{
-  int address;
-  char content[BUFF_SIZE];
-  char bin_content[ADDR_SIZE];
-  struct node *next;
-};
+int lock = 0;
 
-struct node *head = NULL;
-struct node *current = NULL;
-/*************************/
-/*Get Array**************/
-char* get_array(int argc, char*argv[]){
- char (*array)[BUFF_SIZE]=NULL;
-  array = read_from_file(argc, argv);
-  for (int i = 0;i < MAX_SIZE; i++){
-    insert_first(i,array[i]);// Inser in the LL
-  }
-   printf("\||\t  HEX\t|========|\tBINARY\t|=============|OPCODE|==|\n");
-   print_list();
-   printf("\n|DONE================================================================================|\n");
-  return 0;
-}
-
-/*display the list*************/
 /*Prints LLL******************/
-void print_list() {
-   struct node *ptr = head;
-   //start from the beginning
-   while(ptr != NULL) {
-     printf("|" "0x" "%s" "|" "|" "%s" "|\r",ptr->content,ptr->bin_content);
-     ptr = ptr->next;
-   }
+void print_list(struct node *head,struct node *current) {
+  int i;
+  char *decor = "=";
+  struct node *ptr = head;
+  if (lock == 0){
+  printf("PRINT ALL MEMORY ");
+  printf("|Address===HEX========|BINARY|====|\n");
+  //start from the beginning
+  while(ptr != NULL) {
+    printf("\r|%016x|" "%s|" "%s|" "|",ptr->address,ptr->content,ptr->bin_content);
+    ptr = ptr->next;
+  }
+  i = 0 ;
+  printf("\r\n ");
+  while(i < 51 ){if(i==50){printf("DONE\r\n");}
+    else{printf("%s",decor);}
+    i++;
+  }
+  }
+  lock = 1;
 }
 /*Insert********************/
-/*Adds to the LLL**********/
-void insert_first(int i,const char (*array)[BUFF_SIZE]){
+struct node *insert_first(int i, char *array,struct node *head,struct node *current){
+  
   struct node *newregister = (struct node*) malloc(sizeof(struct node));
-  newregister -> address = i; // store the address
-  char *tmp = malloc(ADDR_SIZE * sizeof(char));
-  memcpy( newregister -> content,array,BUFF_SIZE);//store the content
-  tmp = hex_to_bin(array);//convert the hex to binary
-  memcpy( newregister -> bin_content,tmp,ADDR_SIZE);//store in LL
+  newregister -> address = i; // store the address)
+  memcpy(newregister -> content,array,BUFF_SIZE);//store the content
+  memcpy( newregister -> bin_content,hex_to_bin(array),ADDR_SIZE);//store in LL
   /* Next *************/
   newregister -> next = head;
   head = newregister;
-  free(tmp);
+  return head;
 }
 /**************************/
 /*Converts the input to bin*/
-char *hex_to_bin(const char (*array)[BUFF_SIZE]){
+char *hex_to_bin(char *array){
   char hex[BUFF_SIZE], bin[ADDR_SIZE]="";
   memcpy(hex,array,BUFF_SIZE);
-  //printf("%s\n",hex);
+  char *binary=malloc(ADDR_SIZE * sizeof(char));
   int i = 0;
-    /* Extract first digit and find binary of each hex digit */
+  /* Extract first digit and find binary of each hex digit */
   for(i=0; hex[i]!='\0'; i++)
     {
       switch(hex[i])
@@ -125,32 +107,51 @@ char *hex_to_bin(const char (*array)[BUFF_SIZE]){
 	  break;
         }
     }
-  char *tmp = malloc(ADDR_SIZE * sizeof(char));
-  memcpy(tmp,bin,ADDR_SIZE);
-  return tmp;
+  memcpy(binary,bin,ADDR_SIZE);
+  return binary;
 }
-
 /* Read from file ******/
 /* Read the memory image */
-char* read_from_file(int argc, char* argv[]){
+struct node *read_from_file(int argc, char *argv[],struct node *head,struct node *current){
   FILE *stream;
-  char (*lines)[BUFF_SIZE] = NULL;
-  int n = 0;
-  /*Open file*/
+  int i =0;
+  char *memory_image = malloc(BUFF_SIZE);
+  size_t totalBytesRead = 0;
+  size_t bytesAllocated = BUFF_SIZE;
+  char line[BUFF_SIZE];
+  /*Open file--------------------------*/
   stream = fopen(argv[1],"rb");
   if (stream == NULL)
     {
       fprintf(stderr, "failed to open input.txt\n");
       exit(1);
     }
-  if (!(lines = malloc (MAX_SIZE * sizeof *lines))) { /* allocate MAXL arrays */
-        fprintf (stderr, "error: virtual memory exhausted 'lines'.\n");
+  /*---------------------------------*/
+  while (fgets(line, BUFF_SIZE, stream)) {
+    size_t bytesRead = strlen(line);
+    size_t bytesNeeded = totalBytesRead + bytesRead + 1;
+    if (bytesAllocated < bytesNeeded) {
+      char *newPtr = realloc(memory_image, bytesAllocated + BUFF_SIZE);
+      if (newPtr) {
+	memory_image = newPtr;
+	bytesAllocated +=BUFF_SIZE;
+      }
+      else {
+	// Out of memory.
+	free(memory_image);
         exit(1);
+      }
     }
-  while(n<MAX_SIZE && fgets(lines[n],BUFF_SIZE,stream)>0){
-    
-    n++;
+    memcpy(memory_image + totalBytesRead, line, bytesRead);
+    head = insert_first(i,line,head,current);
+    totalBytesRead += bytesRead;
+    i=i+4;;
   }
+  memory_image[totalBytesRead] = '\0';
+  print_list(head,current);
   fclose(stream);
-  return lines;
+  return head;
 }
+
+    
+    

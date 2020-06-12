@@ -10,6 +10,10 @@ project (MIPS_SIMULATOR)
 set(SOURCES
     src/tools.c
     src/main.c
+    src/instruction_fetch.c
+    src/pipeline.c
+    src/instruction_decode.c
+    src/execute.c
 )
 
 # Add an executable with the above sources
