@@ -94,12 +94,12 @@ clean: CMakeFiles/MIPS_SIMULATOR.dir/clean
 CMakeFiles/MIPS_SIMULATOR.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target MIPS_SIMULATOR"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nik/development/MIPS_SIMULATOR/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target MIPS_SIMULATOR"
 .PHONY : CMakeFiles/MIPS_SIMULATOR.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MIPS_SIMULATOR.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nik/development/MIPS_SIMULATOR/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nik/development/MIPS_SIMULATOR/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MIPS_SIMULATOR.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nik/development/MIPS_SIMULATOR/build/CMakeFiles 0
 .PHONY : CMakeFiles/MIPS_SIMULATOR.dir/rule

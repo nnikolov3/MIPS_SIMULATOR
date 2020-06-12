@@ -143,6 +143,33 @@ MIPS_SIMULATOR/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/build
 .PHONY : MIPS_SIMULATOR/fast
 
+src/instruction_decode.o: src/instruction_decode.c.o
+
+.PHONY : src/instruction_decode.o
+
+# target to build an object file
+src/instruction_decode.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_decode.c.o
+.PHONY : src/instruction_decode.c.o
+
+src/instruction_decode.i: src/instruction_decode.c.i
+
+.PHONY : src/instruction_decode.i
+
+# target to preprocess a source file
+src/instruction_decode.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_decode.c.i
+.PHONY : src/instruction_decode.c.i
+
+src/instruction_decode.s: src/instruction_decode.c.s
+
+.PHONY : src/instruction_decode.s
+
+# target to generate assembly for a file
+src/instruction_decode.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MIPS_SIMULATOR.dir/build.make CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_decode.c.s
+.PHONY : src/instruction_decode.c.s
+
 src/instruction_fetch.o: src/instruction_fetch.c.o
 
 .PHONY : src/instruction_fetch.o
@@ -260,6 +287,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... MIPS_SIMULATOR"
+	@echo "... src/instruction_decode.o"
+	@echo "... src/instruction_decode.i"
+	@echo "... src/instruction_decode.s"
 	@echo "... src/instruction_fetch.o"
 	@echo "... src/instruction_fetch.i"
 	@echo "... src/instruction_fetch.s"
