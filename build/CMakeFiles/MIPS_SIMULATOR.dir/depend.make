@@ -7,6 +7,7 @@ CMakeFiles/MIPS_SIMULATOR.dir/src/instruction_fetch.c.o: ../src/instruction_fetc
 
 CMakeFiles/MIPS_SIMULATOR.dir/src/main.c.o: ../include/const.h
 CMakeFiles/MIPS_SIMULATOR.dir/src/main.c.o: ../include/instruction_fetch.h
+CMakeFiles/MIPS_SIMULATOR.dir/src/main.c.o: ../include/tools.h
 CMakeFiles/MIPS_SIMULATOR.dir/src/main.c.o: ../src/main.c
 
 CMakeFiles/MIPS_SIMULATOR.dir/src/pipeline.c.o: ../include/const.h
